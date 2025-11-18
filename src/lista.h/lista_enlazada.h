@@ -3,13 +3,13 @@
 #include "tad_producto.h"
 
 typedef struct{
-	Producto producto;
+	tProducto producto;
 	struct Nodo* siguiente;
-}Nodo;
+}tNodo;
 
 typedef struct{
-	Nodo* head;
-	Nodo* tail;
+	tNodo* head;
+	tNodo* tail;
 }listaProductos;
 
 void inicializarLista(listaProductos* lista);
