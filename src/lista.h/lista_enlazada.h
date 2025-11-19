@@ -15,5 +15,6 @@ typedef struct{
 void inicializarLista(listaProductos* lista);
 void insertarProducto(listaProductos* lista,tProducto p);
 void liberarLista(listaProductos* lista);
+void mostrarLista(listaProductos* lista);
 
 #endif
