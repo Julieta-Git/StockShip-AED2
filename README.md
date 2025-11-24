@@ -71,6 +71,7 @@ STOCKSHIP-AED2/
 
 2. Ejecución
    Una vez compilado, ejecuta el programa con:
+
    **En Windows:**
    ```bash
    ./stockship.exe
