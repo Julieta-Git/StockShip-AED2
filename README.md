@@ -34,7 +34,7 @@ El sistema permite realizar las siguientes operaciones a través de un menú int
 
 El proyecto fue desarrollado siguiendo buenas prácticas de programación estructurada y modularización:
 
-* **Lenguaje:** C (Standard C99).
+* **Lenguaje:** C.
 * **Estructura de Datos:** Lista Enlazada Simple (TAD).
 * **Arquitectura:** Separación en capas mediante **TADs** (Tipos Abstractos de Datos):
     * `tad_producto`: Define la estructura y datos del negocio.
@@ -72,11 +72,11 @@ STOCKSHIP-AED2/
 2. Ejecución
    Una vez compilado, ejecuta el programa con:
 
-   **En Windows:**
-   ```bash
-   ./stockship.exe
-   ```  
-  **En Linux/Mac:**
-  ```bash
-   ./stockship
-   ```
+**En Windows:**
+```bash
+./stockship.exe
+```  
+**En Linux/Mac:**
+```bash
+./stockship
+```
