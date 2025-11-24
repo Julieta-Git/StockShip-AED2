@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "../producto.h/tad_producto.h"
+#include "lista_enlazada.h"
 
 void inicializarLista(listaProductos* lista) {
     lista->head = NULL;

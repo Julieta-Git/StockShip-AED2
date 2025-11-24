@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../producto.h/tad_producto.h" 
+#include "tad_producto.h"
+#include "lista_enlazada.h"
 
 
 void ingresarProducto(listaProductos* lista) {
@@ -44,6 +45,8 @@ int main() {
     listaProductos lista;
     inicializarLista(&lista);
     int opcion;
+    int idBuscado;
+    char nombreBuscado[50];
 
     tProducto p1 = {10, "Coca Cola", 1500, 1000, 50};
     tProducto p2 = {1, "Caramelo", 100, 50, 200};
@@ -61,7 +64,9 @@ int main() {
         printf("\n=== GESTION DE STOCK ===\n");
         printf("1. Ingresar Producto (Tu parte)\n");
         printf("2. Mostrar Productos (Tu parte)\n");
-        printf("3. Salir\n");
+        printf("3. Buscar producto por ID.\n");
+        printf("4. Buscar producto por nombre\n");
+        printf("5. Salir\n");
         printf("Opcion: ");
         scanf("%d", &opcion);
 
@@ -72,13 +77,37 @@ int main() {
             case 2:
                 mostrarLista(&lista);
                 break;
+
             case 3:
+                printf("Ingrese el ID que desea buscar: ");
+                scanf("%d", &idBuscado); 
+
+                if(buscarProducto(&lista, idBuscado) != NULL){ 
+                    printf("El producto con ID %d se encuentra en la lista!\n", idBuscado);
+                } else {
+                    printf("El producto no se encuentra.\n");
+            }
+            break;
+
+            case 4:
+                printf("Ingrese el nombre que desea buscar: ");
+                fflush(stdin); 
+                scanf("%[^\n]", nombreBuscado); 
+
+                if(buscarProductoPorNombre(&lista, nombreBuscado)){
+                    printf("El producto %s se encuentra en la lista!\n", nombreBuscado);
+                } else {
+                    printf("El producto no se encuentra!\n");
+                }
+                break;
+                
+            case 5:
                 printf("Saliendo...\n");
                 break;
             default:
                 printf("Opcion invalida.\n");
         }
-    } while(opcion != 3);
+    } while(opcion != 5);
 
     liberarLista(&lista);
     return 0;
