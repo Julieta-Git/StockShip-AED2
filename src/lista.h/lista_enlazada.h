@@ -4,7 +4,7 @@
 
 typedef struct{
 	tProducto producto;
-	struct Nodo* siguiente;
+	struct tNodo* siguiente;
 }tNodo;
 
 typedef struct{

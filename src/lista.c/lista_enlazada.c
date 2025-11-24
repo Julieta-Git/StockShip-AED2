@@ -1,72 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../producto.h/tad_producto.h"
+#include <string.h>
+#include "lista_enlazada.h"
 
 void inicializarLista(listaProductos* lista) {
     lista->head = NULL;
+    lista->tail = NULL; 
 }
 
-
-tNodo* buscarProducto(listaProductos* lista, int id) {
-    tNodo* actual = lista->head;
-    while (actual != NULL) {
-        if (actual->producto.id == id) {
-            return actual;
-        }
-        actual = actual->siguiente;
-    }
-    return NULL;
-}
-
-
-int insertarOrdenado(listaProductos* lista, tProducto p) {
-    tNodo* nuevo = (tNodo*)malloc(sizeof(tNodo));
-    if (nuevo == NULL) return 0; 
-
-    nuevo->producto = p;
-    nuevo->siguiente = NULL;
-
-
-    if (lista->head == NULL || p.id < lista->head->producto.id) {
-        nuevo->siguiente = lista->head;
-        lista->head = nuevo;
-    } 
-    else {
-       
-        tNodo* actual = lista->head;
-        while (actual->siguiente != NULL && actual->siguiente->producto.id < p.id) {
-            actual = actual->siguiente;
-        }
-        nuevo->siguiente = actual->siguiente;
-        actual->siguiente = nuevo;
-    }
-    return 1; 
-}
-
-void mostrarLista(listaProductos* lista) {
-    tNodo* actual = lista->head;
-    
-    if (actual == NULL) {
-        printf("Lista vacia.\n");
+void insertarProducto(listaProductos* lista, tProducto p) {
+    tNodo* nuevoNodo = (tNodo*)malloc(sizeof(tNodo));
+    if (nuevoNodo == NULL) {
+        printf("Error: No hay memoria suficiente.\n");
         return;
     }
+    
+    // B. Llenar el nodo con los datos
+    nuevoNodo->producto = p;
+    nuevoNodo->siguiente = NULL; 
 
-    printf("ID \t NOMBRE \t PRECIO \t STOCK\n");
-    while (actual != NULL) {
-        printf("%d \t %s \t %.2f \t %d\n",
-               actual->producto.id, 
-               actual->producto.nombre,
-               actual->producto.precio, 
-               actual->producto.stock);
-        actual = actual->siguiente;
+    if (lista->head == NULL) {
+        lista->head = nuevoNodo;
+        lista->tail = nuevoNodo; 
+    } else {
+        lista->tail->siguiente = (struct Nodo*)nuevoNodo; 
+        lista->tail = nuevoNodo;
     }
 }
+
+// 3. Mostrar Lista: Recorre e imprime
+void mostrarLista(listaProductos* lista) {
+    printf("---- INVENTARIO ----\n");
+    tNodo* actual = lista->head;
+
+    if (actual == NULL) {
+        printf("  (Lista vacia)\n");
+    }
+
+    while (actual != NULL) {
+        printf("ID: %d | Nombre: %s | Stock: %d | Precio: %.2f\n", 
+               actual->producto.id, 
+               actual->producto.nombre, 
+               actual->producto.stock,
+               actual->producto.precio);
+               
+        // Avanzar al siguiente nodo
+        actual = (tNodo*)actual->siguiente;
+    }
+    printf("--------------------\n");
+}
+
+// 4. Liberar Lista: Limpia la memoria al cerrar el programa
 void liberarLista(listaProductos* lista) {
     tNodo* actual = lista->head;
+    tNodo* siguienteNodo;
+
     while (actual != NULL) {
-        tNodo* temp = actual;
-        actual = actual->siguiente;
-        free(temp);
+        siguienteNodo = (tNodo*)actual->siguiente;
+        free(actual); // Borrar el nodo actual
+        actual = siguienteNodo; // Avanzar
     }
+
     lista->head = NULL;
+    lista->tail = NULL;
 }

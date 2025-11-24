@@ -22,6 +22,7 @@ typedef struct {
     tNodo* head;
 } listaProductos;
 
+tProducto producto;
 
 void inicializarLista(listaProductos* lista);
 void liberarLista(listaProductos* lista);
