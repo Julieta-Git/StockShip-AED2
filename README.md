@@ -74,8 +74,7 @@ STOCKSHIP-AED2/
    **En Windows:**
    ```bash
    ./stockship.exe
-   ```
-   
+   ```  
   **En Linux/Mac:**
   ```bash
    ./stockship
