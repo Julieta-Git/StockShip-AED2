@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../producto.h/tad_producto.h" 
+#include "tad_producto.h"
+#include "lista_enlazada.h"
 
 
 void ingresarProducto(listaProductos* lista) {
