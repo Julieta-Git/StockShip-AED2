@@ -1,20 +1,24 @@
 #ifndef LISTA_ENLAZADA_H
 #define LISTA_ENLAZADA_H
-#include "tad_producto.h"
+#include "tad_producto.h" 
 
-typedef struct{
-	tProducto producto;
-	struct tNodo* siguiente;
-}tNodo;
+typedef struct nodo_tag {
+    tProducto producto;
+    struct nodo_tag* siguiente;
+} tNodo;
 
-typedef struct{
-	tNodo* head;
-	tNodo* tail;
-}listaProductos;
+typedef struct {
+    tNodo* head;
+    tNodo* tail;
+} listaProductos;
 
 void inicializarLista(listaProductos* lista);
-void insertarProducto(listaProductos* lista,tProducto p);
-void liberarLista(listaProductos* lista);
+void insertarOrdenado(listaProductos* lista, tProducto p); 
+tNodo* buscarProducto(listaProductos* lista, int id);    
+int buscarProductoPorNombre(listaProductos* lista, char* nombre); 
 void mostrarLista(listaProductos* lista);
+void liberarLista(listaProductos* lista);
+int registrarVenta(listaProductos* lista, int id, int cantidadVendida);
+int eliminarProducto(listaProductos* lista, int id);
 
 #endif

@@ -9,7 +9,6 @@ void ingresarProducto(listaProductos* lista) {
 
     printf("\n--- NUEVO PRODUCTO ---\n");
 
-
     do {
         printf("Ingrese ID (numerico): ");
         scanf("%d", &p.id);
@@ -34,7 +33,6 @@ void ingresarProducto(listaProductos* lista) {
 
     printf("Ingrese Stock inicial: ");
     scanf("%d", &p.stock);
-
    
     insertarOrdenado(lista, p);
     printf(">> Producto ingresado y ordenado correctamente.\n");
@@ -43,7 +41,10 @@ void ingresarProducto(listaProductos* lista) {
 int main() {
     listaProductos lista;
     inicializarLista(&lista);
+    
     int opcion;
+    int idBuscado;
+    char nombreBuscado[50];
 
     tProducto p1 = {10, "Coca Cola", 1500, 1000, 50};
     tProducto p2 = {1, "Caramelo", 100, 50, 200};
@@ -56,12 +57,17 @@ int main() {
     insertarOrdenado(&lista, p3);
     insertarOrdenado(&lista, p4);
     insertarOrdenado(&lista, p5);
+    // -----------------------------------
 
     do {
         printf("\n=== GESTION DE STOCK ===\n");
-        printf("1. Ingresar Producto (Tu parte)\n");
-        printf("2. Mostrar Productos (Tu parte)\n");
-        printf("3. Salir\n");
+      printf("1. Ingresar Producto\n");
+        printf("2. Mostrar Productos\n");
+        printf("3. Buscar producto por ID\n");
+        printf("4. Buscar producto por Nombre\n");
+        printf("5. Registrar Venta\n");
+        printf("6. Eliminar Producto\n");
+        printf("7. Salir\n");             
         printf("Opcion: ");
         scanf("%d", &opcion);
 
@@ -69,16 +75,71 @@ int main() {
             case 1:
                 ingresarProducto(&lista);
                 break;
+                
             case 2:
                 mostrarLista(&lista);
                 break;
+
             case 3:
-                printf("Saliendo...\n");
+                printf("\n--- BUSCAR POR ID ---\n");
+                printf("Ingrese el ID que desea buscar: ");
+                scanf("%d", &idBuscado); 
+
+                tNodo* nodoEnc = buscarProducto(&lista, idBuscado);
+                if(nodoEnc != NULL){ 
+                    printf(">> ENCONTRADO: %s (Stock: %d | Precio: $%.2f)\n", 
+                           nodoEnc->producto.nombre, 
+                           nodoEnc->producto.stock, 
+                           nodoEnc->producto.precio);
+                } else {
+                    printf(">> El producto no se encuentra.\n");
+                }
                 break;
+
+            case 4:
+                printf("\n--- BUSCAR POR NOMBRE ---\n");
+                printf("Ingrese el nombre que desea buscar: ");
+                fflush(stdin); 
+                scanf(" %[^\n]", nombreBuscado); 
+
+                if(buscarProductoPorNombre(&lista, nombreBuscado)){
+                    printf(">> El producto '%s' se encuentra en la lista!\n", nombreBuscado);
+                } else {
+                    printf(">> El producto no se encuentra!\n");
+                }
+                break;
+                
+            case 5:
+                {
+                    int idVenta, cantVenta;
+                    printf("\n--- REGISTRAR VENTA ---\n");
+                    printf("ID del producto a vender: ");
+                    scanf("%d", &idVenta);
+                    printf("Cantidad a vender: ");
+                    scanf("%d", &cantVenta);
+                    
+                    registrarVenta(&lista, idVenta, cantVenta);
+                }
+                break;
+
+           case 6:
+            {
+                int idEliminar;
+                printf("\n--- ELIMINAR PRODUCTO ---\n");
+                printf("Ingrese el ID del producto a eliminar: ");
+                scanf("%d", &idEliminar);
+                eliminarProducto(&lista, idEliminar);
+            }
+            break;
+
+            case 7:
+                printf("Saliendo del sistema...\n");
+                break;
+                
             default:
-                printf("Opcion invalida.\n");
+                printf("Opcion invalida. Intente nuevamente.\n");
         }
-    } while(opcion != 3);
+    } while(opcion != 7);
 
     liberarLista(&lista);
     return 0;
