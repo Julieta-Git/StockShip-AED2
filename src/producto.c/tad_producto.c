@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "lista_enlazada.h"
 
@@ -79,22 +79,6 @@ bool buscarProductoPorID(listaProductos* lista, int elem) {
 
     while(actual != NULL) {
         if (actual->producto.id == elem) { 
-            return true;
-        }
-        actual = actual->siguiente;
-    }
-
-    return result;
-}
-
- bool buscarProductoPorNombre(listaProductos* lista, char elem[50]) {
-    bool result = false;
-    
-    tNodo* actual = lista->head;
-
-    while(actual != NULL) {
-        // Usamos 'actual' para acceder al producto
-        if (strcmp(actual->producto.nombre, elem) == 0) {
             return true;
         }
         actual = actual->siguiente;

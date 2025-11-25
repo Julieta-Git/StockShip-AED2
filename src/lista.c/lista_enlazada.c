@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "lista_enlazada.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,9 +17,8 @@ tNodo* buscarProducto(listaProductos* lista, int id) {
         }
         actual = actual->siguiente;
     }
-    
-    nuevoNodo->producto = p;
-    nuevoNodo->siguiente = NULL; 
+    return NULL;
+}
 
 void insertarOrdenado(listaProductos* lista, tProducto p) {
     tNodo* nuevo = (tNodo*)malloc(sizeof(tNodo));
@@ -65,7 +65,7 @@ void mostrarLista(listaProductos* lista) {
 
 void liberarLista(listaProductos* lista) {
     tNodo* actual = lista->head;
-    tNodo* sig;
+    tNodo* siguienteNodo;
     while (actual != NULL) {
         siguienteNodo = (tNodo*)actual->siguiente;
         free(actual);
@@ -108,8 +108,8 @@ int registrarVenta(listaProductos* lista, int id, int cantidadVendida) {
     printf("   Stock restante: %d\n\n", encontrado->producto.stock);
 
     return 1;
-
-    int eliminarProducto(listaProductos* lista, int id) {
+}
+int eliminarProducto(listaProductos* lista, int id) {
     if (!lista || !lista->head) {
         printf("Error: Lista vacia o invalida.\n");
         return 0;
@@ -150,4 +150,14 @@ int registrarVenta(listaProductos* lista, int id, int cantidadVendida) {
     printf(">> Producto ID %d eliminado correctamente.\n", id);
     return 1;
 }
+
+ int buscarProductoPorNombre(listaProductos *lista, char* nombre) {
+    tNodo* actual = lista->head;
+    while(actual != NULL) {
+        if(strcmp(actual->producto.nombre, nombre) == 0) {
+            return 1;
+        }
+        actual = actual->siguiente;
+    }
+    return 0; 
 }
